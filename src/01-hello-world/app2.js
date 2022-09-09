@@ -2,4 +2,5 @@ const greet = (name) => {
   return `Greetings ${name}`; // 'Greetings ' + name;
 };
 
-greet();
+const greeting = greet('Stiven');
+console.log(greeting);
