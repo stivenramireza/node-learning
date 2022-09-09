@@ -2,9 +2,12 @@
   "name": "node-learning",
   "version": "1.0.0",
   "description": "Node.js Learning",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "lint:js": "eslint --fix --ext .js --ignore-path .gitignore .",
+    "lint": "npm run lint:js",
+    "version": "echo $npm_package_version"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/stivenramireza/node-learning/issues"
   },
-  "homepage": "https://github.com/stivenramireza/node-learning#readme"
+  "homepage": "https://github.com/stivenramireza/node-learning#readme",
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1"
+  }
 }

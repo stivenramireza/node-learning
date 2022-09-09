@@ -1,5 +1,5 @@
 const main = () => {
-  console.log("Node.js Learning");
+  console.log('Node.js Learning');
 };
 
 main();
