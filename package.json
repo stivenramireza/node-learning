@@ -1,0 +1,19 @@
+{
+  "name": "node-learning",
+  "version": "1.0.0",
+  "description": "Node.js Learning",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stivenramireza/node-learning.git"
+  },
+  "author": "Stiven Ramírez Arango",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stivenramireza/node-learning/issues"
+  },
+  "homepage": "https://github.com/stivenramireza/node-learning#readme"
+}
