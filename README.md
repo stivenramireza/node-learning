@@ -3,5 +3,5 @@
 Building strong foundations in Node.js.
 
 <p>
-<img src="https://krify.co/wp-content/uploads/2019/07/Nodejs.jpg">
+<img src="https://www.simform.com/wp-content/uploads/2020/04/node.js-architecture.png">
 </p>
