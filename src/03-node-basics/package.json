@@ -1,0 +1,17 @@
+{
+  "name": "03-node-basics",
+  "version": "0.0.1",
+  "description": "A simple multiplier table with text file",
+  "main": "app.js",
+  "scripts": {
+    "base3": "node app --base=3",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stiven Ramírez Arango",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {}
+}

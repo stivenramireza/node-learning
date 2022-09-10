@@ -1,4 +1,5 @@
 const fs = require('fs');
+require('colors');
 
 class Table {
   constructor(base, multiplier, result) {
@@ -8,12 +9,12 @@ class Table {
   }
 }
 
-const getTable = (base = 5) => {
+const getTable = (base = 5, limit = 10) => {
   return new Promise((resolve, reject) => {
     try {
       let result = [];
 
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= limit; i++) {
         const table = new Table(base, i, base * i);
         result.push(table);
       }
@@ -25,17 +26,30 @@ const getTable = (base = 5) => {
   });
 };
 
-const printTable = async (table) => {
+const printTable = async (table, format = 'console') => {
   return new Promise((resolve, reject) => {
     if (!table?.length) return reject('Table does not exist');
     const { base } = table[0];
 
-    console.log(`
+    console.log(
+      `
     ==========================
             Table ${base}
     ==========================
-    `);
-    console.table(table, ['base', 'multiplier', 'result']);
+    `.blue
+    );
+
+    if (format !== 'console') {
+      console.table(table, ['base', 'multiplier', 'result']);
+    } else {
+      let out = '';
+      for (const line of table) {
+        out += `${line.base} ${'x'.blue} ${line.multiplier} ${'='.blue} ${
+          line.base * line.multiplier
+        }\n`;
+      }
+      console.log(out);
+    }
   });
 };
 
@@ -49,7 +63,7 @@ const saveFile = async (table) => {
     for (const line of table) {
       out += `${line.base} x ${line.multiplier} = ${line.base * line.multiplier}\n`;
     }
-    fs.writeFileSync(`table-${base}.txt`, out);
+    fs.writeFileSync(`./files/table-${base}.txt`, out);
     return `table-${base}.txt`;
   } catch (err) {
     return err; // throw err;
