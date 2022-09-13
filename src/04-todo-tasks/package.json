@@ -9,6 +9,8 @@
   "author": "Stiven Ramírez Arango",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "inquirer": "^7.3.3",
+    "uuid": "^9.0.0"
   }
 }
