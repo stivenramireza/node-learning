@@ -1,0 +1,9 @@
+[
+  { "id": "b0ec2cc5-a5dd-45c0-bd82-5b1a86ea5f08", "description": "Task 1", "completedAt": null },
+  {
+    "id": "aed84e0a-971a-48d6-b998-dfdceba8d805",
+    "description": "Task 2",
+    "completedAt": "2022-09-14 22:07:00"
+  },
+  { "id": "f426b9dc-3740-451c-a586-7116eabd3d8a", "description": "Task 3", "completedAt": null }
+]

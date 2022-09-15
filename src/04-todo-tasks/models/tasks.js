@@ -20,6 +20,22 @@ class Tasks {
     const task = new Task(description);
     this._list[task.id] = task;
   }
+
+  loadTasks(tasks = []) {
+    tasks.forEach((task) => {
+      this._list[task.id] = task;
+    });
+  }
+
+  listFullTasks() {
+    console.log(`\n`);
+    this.listArr.forEach((task, i) => {
+      const idx = `${i + 1}.`.blue;
+      const { description, completedAt } = task;
+      const status = completedAt ? 'Completed'.green : 'Pending'.red;
+      console.log(`${idx} ${description} :: ${status}`);
+    });
+  }
 }
 
 module.exports = Tasks;
