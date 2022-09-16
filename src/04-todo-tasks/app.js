@@ -1,7 +1,14 @@
 require('colors');
 
 const { showMenu, pause: pauseMessage } = require('./helpers/messages');
-const { inquireMenu, pause, readInput } = require('./helpers/inquirer');
+const {
+  inquireMenu,
+  pause,
+  readInput,
+  listTasksToDelete,
+  confirmDeletion,
+  showChecklist,
+} = require('./helpers/inquirer');
 const Tasks = require('./models/tasks');
 const { saveDB, readDB } = require('./helpers/db');
 
@@ -28,12 +35,31 @@ const main = async () => {
     opt = await inquireMenu();
 
     switch (opt) {
-      case '1':
+      case '1': // Create a task
         const description = await readInput('Description: ');
         tasks.createTask(description);
         break;
-      case '2':
+      case '2': // List tasks
         tasks.listFullTasks();
+        break;
+      case '3': // List completed tasks
+        tasks.listPendingOrCompletedTasks(true);
+        break;
+      case '4': // List pending tasks
+        tasks.listPendingOrCompletedTasks(false);
+        break;
+      case '5': // Complete tasks
+        const ids = await showChecklist(tasks.listArr);
+        tasks.toggleCompletedTasks(ids);
+        break;
+      case '6': // Delete a task
+        const id = await listTasksToDelete(tasks.listArr);
+        if (id === '0') break;
+        const confirm = await confirmDeletion('Are you sure?');
+        if (confirm) {
+          tasks.deleteTask(id);
+          console.log('Task has been deleted successfully');
+        }
         break;
     }
 
