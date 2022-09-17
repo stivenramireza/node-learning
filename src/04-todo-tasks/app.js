@@ -27,9 +27,7 @@ const main = async () => {
   const tasks = new Tasks();
   const tasksDB = readDB();
 
-  if (tasksDB) {
-    tasks.loadTasks(tasksDB);
-  }
+  if (tasksDB) tasks.loadTasks(tasksDB);
 
   do {
     opt = await inquireMenu();
