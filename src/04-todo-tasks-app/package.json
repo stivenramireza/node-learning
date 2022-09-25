@@ -1,10 +1,10 @@
 {
-  "name": "04-todo-tasks",
+  "name": "04-todo-tasks-app",
   "version": "1.0.0",
   "description": "TO-DO tasks CLI",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Stiven Ramírez Arango",
   "license": "ISC",
