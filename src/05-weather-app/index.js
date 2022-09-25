@@ -1,8 +1,8 @@
 const { readInput } = require('./helpers/inquirer');
 
 const main = async () => {
-  const text = await readInput('Hello: ');
-  console.log(text);
+  const name = await readInput('Enter your name: ');
+  console.log(`Hello ${name}`);
 };
 
 main();
