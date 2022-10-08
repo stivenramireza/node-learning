@@ -1,16 +1,16 @@
 {
-  "root": true,
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true,
-    "commonjs": true
-  },
-  "parserOptions": {
-    "project": ["jsconfig.json"],
-    "createDefaultProgram": true,
-    "ecmaVersion": "latest"
-  },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-  "rules": { "prettier/prettier": "warn" }
+    "root": true,
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "commonjs": true
+    },
+    "parserOptions": {
+        "project": ["jsconfig.json"],
+        "createDefaultProgram": true,
+        "ecmaVersion": "latest"
+    },
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+    "rules": { "prettier/prettier": "warn" }
 }

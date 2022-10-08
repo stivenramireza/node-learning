@@ -1,16 +1,16 @@
 {
-  "name": "04-todo-tasks-app",
-  "version": "1.0.0",
-  "description": "TO-DO tasks CLI",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
-  },
-  "author": "Stiven Ramírez Arango",
-  "license": "ISC",
-  "dependencies": {
-    "colors": "^1.4.0",
-    "inquirer": "^7.3.3",
-    "uuid": "^9.0.0"
-  }
+    "name": "04-todo-tasks-app",
+    "version": "1.0.0",
+    "description": "TO-DO tasks CLI",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "author": "Stiven Ramírez Arango",
+    "license": "ISC",
+    "dependencies": {
+        "colors": "^1.4.0",
+        "inquirer": "^7.3.3",
+        "uuid": "^9.0.0"
+    }
 }

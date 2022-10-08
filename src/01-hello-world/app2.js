@@ -1,5 +1,5 @@
 const greet = (name) => {
-  return `Greetings ${name}`; // 'Greetings ' + name;
+    return `Greetings ${name}`; // 'Greetings ' + name;
 };
 
 const greeting = greet('Stiven');
