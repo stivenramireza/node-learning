@@ -1,4 +1,8 @@
+const fs = require('fs');
+
 const axios = require('axios');
+
+const { capitalize } = require('../utils/formatter');
 
 const {
     MAPBOX_API_URL,
@@ -8,10 +12,16 @@ const {
 } = require('../utils/secrets');
 
 class Search {
-    historical = ['Tegucigalpa', 'Madrid', 'San José', 'Bogotá'];
+    historical = [];
+    dbPath = './db/database.json';
 
     constructor() {
         // TODO: Read DB if exists
+        this.readDB();
+    }
+
+    get capitalizedHistorical() {
+        return this.historical.map((place) => capitalize(place));
     }
 
     get paramsMapbox() {
@@ -72,6 +82,30 @@ class Search {
         } catch (error) {
             console.error(`Error to get place weather: ${error}`);
         }
+    }
+
+    addHistorical(place = '') {
+        if (this.historical.includes(place.toLowerCase())) return;
+        this.historical = this.historical.splice(0, 5);
+
+        this.historical.unshift(place.toLocaleLowerCase());
+
+        // Save in DB
+        this.saveDB();
+    }
+
+    saveDB() {
+        const payload = {
+            historical: this.historical,
+        };
+        fs.writeFileSync(this.dbPath, JSON.stringify(payload));
+    }
+
+    readDB() {
+        if (!fs.existsSync(this.dbPath)) return;
+        const info = fs.readFileSync(this.dbPath, { encoding: 'utf-8' });
+        const data = JSON.parse(info);
+        this.historical = data.historical;
     }
 }
 

@@ -21,7 +21,12 @@ const main = async () => {
 
                 // Select place
                 const placeId = await listPlaces(places);
+                if (placeId === '0') continue;
+
                 const selectedPlace = places.find((place) => (place.id = placeId));
+
+                // Save in DB
+                search.addHistorical(selectedPlace.name);
 
                 // Weather
                 const weather = await search.searchPlaceWeather(
@@ -42,7 +47,10 @@ const main = async () => {
 
                 break;
             case 2: // List historical search
-                console.log('Option 2');
+                search.capitalizedHistorical.forEach((place, i) => {
+                    const idx = `${i + 1}.`.green;
+                    console.log(`${idx} ${place}`);
+                });
                 break;
         }
 
