@@ -1,9 +1,9 @@
 # Code editors
 .vscode
 
+# Environment variables
+.env
+
 # Node
 node_modules
 package-lock.json
-
-# Files
-files/*.txt
