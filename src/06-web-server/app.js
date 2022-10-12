@@ -1,10 +1,13 @@
 const express = require('express');
+const hbs = require('hbs');
+require('dotenv').config();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
-// TODO: require('hbs')
+// Handlebars
 app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials', (err) => {});
 
 // Serve static content
 app.use(express.static('public'));
@@ -21,11 +24,17 @@ app.get('/hello-world', (req, res) => {
 });
 
 app.get('/generic', (req, res) => {
-    res.sendFile(__dirname + '/public/generic.html');
+    res.render('generic', {
+        name: 'Stiven Ramírez Arango',
+        title: 'Handlebars',
+    });
 });
 
 app.get('/elements', (req, res) => {
-    res.sendFile(__dirname + '/public/elements.html');
+    res.render('elements', {
+        name: 'Stiven Ramírez Arango',
+        title: 'Handlebars',
+    });
 });
 
 app.get('*', (req, res) => {
