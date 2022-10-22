@@ -1,18 +1,29 @@
 const express = require('express');
 const cors = require('cors');
 
+const { dbConnection } = require('./database');
+
 class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
+        this.env = process.env.ENV;
+
         this.usersPath = '/api/v1/users';
         this.usersRoutes = require('../routes/users');
+
+        // Connect to database
+        this.connectDatabase();
 
         // Middlewares
         this.middlewares();
 
         // Routes
         this.routes();
+    }
+
+    connectDatabase() {
+        dbConnection();
     }
 
     middlewares() {
@@ -32,7 +43,7 @@ class Server {
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log(`Server is running at port ${this.port}`);
+            console.log(`Coffee Shop API is running at port ${this.port} in ${this.env} mode`);
         });
     }
 }
