@@ -1,17 +1,20 @@
 const { request, response } = require('express');
 
-const { postUser } = require('../services/users');
+const { searchUsers, searchUserById, postUser } = require('../services/users');
 
-const getUsers = (req = request, res = response) => {
+const getUsers = async (req = request, res = response) => {
     const { q, name = 'No name', apikey, page = 10, limit } = req.query;
-    res.json({
-        msg: 'GET API - Controller',
-        q,
-        name,
-        apikey,
-        page,
-        limit,
-    });
+    const users = await searchUsers();
+    res.json(users);
+};
+
+const getUserById = async (req = request, res = response) => {
+    const { id } = req.params;
+
+    const user = await searchUserById(id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.json(user);
 };
 
 const postUsers = async (req = request, res = response) => {
@@ -46,6 +49,7 @@ const deleteUsers = (req = request, res = response) => {
 
 module.exports = {
     getUsers,
+    getUserById,
     postUsers,
     putUsers,
     patchUsers,

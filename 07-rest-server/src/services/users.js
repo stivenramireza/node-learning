@@ -1,6 +1,14 @@
 const bcryptjs = require('bcryptjs');
 
-const { saveUser } = require('../repositories/users');
+const { findUsers, findUserById, saveUser } = require('../repositories/users');
+
+const searchUsers = async () => {
+    return await findUsers();
+};
+
+const searchUserById = async (id) => {
+    return await findUserById(id);
+};
 
 const postUser = async (user) => {
     const salt = bcryptjs.genSaltSync();
@@ -10,5 +18,7 @@ const postUser = async (user) => {
 };
 
 module.exports = {
+    searchUsers,
+    searchUserById,
     postUser,
 };
