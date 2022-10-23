@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Server = require('./server');
+const Server = require('./config/server');
 
 process.on('uncaughtException', (error) => {
     console.error(`Unhandled exception: ${error.message}`);

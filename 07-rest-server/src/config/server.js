@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 
-const { dbConnection } = require('./config/database');
+const { dbConnection } = require('./database');
 
 class Server {
     constructor() {
@@ -42,7 +42,7 @@ class Server {
     }
 
     routes() {
-        this.app.use('/api/v1/users', require('./routes/users'));
+        this.app.use('/api/v1/users', require('../routes/users'));
     }
 
     start() {
