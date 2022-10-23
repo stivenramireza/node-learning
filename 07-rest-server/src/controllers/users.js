@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const { validationResult } = require('express-validator');
 
 const { postUser } = require('../services/users');
 
@@ -15,14 +16,16 @@ const getUsers = (req = request, res = response) => {
 };
 
 const postUsers = async (req = request, res = response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json(errors);
+
     const { name, email, password, role } = req.body;
     const user = { name, email, password, role };
 
-    await postUser(user);
+    const savedUser = await postUser(user);
+    if (!savedUser) return res.status(409).json({ message: 'Email is already registered' });
 
-    res.json({
-        body,
-    });
+    return res.json(savedUser);
 };
 
 const putUsers = (req = request, res = response) => {
