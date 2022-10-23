@@ -1,11 +1,18 @@
 const { request, response } = require('express');
 
-const { searchUsers, searchUserById, postUser, putUser } = require('../services/users');
+const {
+    searchUsers,
+    getTotalUsers,
+    searchUserById,
+    postUser,
+    putUser,
+} = require('../services/users');
 
 const getUsers = async (req = request, res = response) => {
-    const { q, name = 'No name', apikey, page = 10, limit } = req.query;
-    const users = await searchUsers();
-    res.json(users);
+    const { skip = 0, limit = 5 } = req.query;
+    const total = await getTotalUsers();
+    const users = await searchUsers(Number(skip), Number(limit));
+    res.json({ total, users });
 };
 
 const getUserById = async (req = request, res = response) => {

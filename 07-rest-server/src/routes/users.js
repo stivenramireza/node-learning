@@ -14,7 +14,14 @@ const { isValidRole, existsEmail, existsUserById } = require('../utils/validator
 
 const router = Router();
 
-router.get('/', getUsers);
+router.get(
+    '/',
+    [
+        check('skip', 'Skip must be a number').isNumeric(),
+        check('limit', 'Limit must be a number').isNumeric(),
+    ],
+    getUsers
+);
 
 router.get('/:id', getUserById);
 

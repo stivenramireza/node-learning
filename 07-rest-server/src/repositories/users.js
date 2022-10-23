@@ -1,7 +1,11 @@
 const User = require('../models/user');
 
-const findUsers = async () => {
-    return await User.find();
+const findUsers = async (skip, limit) => {
+    return await User.find({ status: true }).skip(skip).limit(limit);
+};
+
+const countUsers = async () => {
+    return await User.countDocuments({ status: true });
 };
 
 const findUserById = async (id) => {
@@ -20,6 +24,7 @@ const updateUser = async (id, data) => {
 
 module.exports = {
     findUsers,
+    countUsers,
     findUserById,
     saveUser,
     updateUser,

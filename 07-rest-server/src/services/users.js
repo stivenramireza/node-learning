@@ -1,8 +1,18 @@
-const { findUsers, findUserById, saveUser, updateUser } = require('../repositories/users');
+const {
+    findUsers,
+    countUsers,
+    findUserById,
+    saveUser,
+    updateUser,
+} = require('../repositories/users');
 const { encryptPassword } = require('../middlewares/passwords');
 
-const searchUsers = async () => {
-    return await findUsers();
+const searchUsers = async (skip, limit) => {
+    return await findUsers(skip, limit);
+};
+
+const getTotalUsers = async () => {
+    return await countUsers();
 };
 
 const searchUserById = async (id) => {
@@ -23,6 +33,7 @@ const putUser = async (id, data, password) => {
 
 module.exports = {
     searchUsers,
+    getTotalUsers,
     searchUserById,
     postUser,
     putUser,
