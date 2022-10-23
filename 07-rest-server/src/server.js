@@ -3,7 +3,6 @@ const cors = require('cors');
 const errorHandler = require('errorhandler');
 
 const { dbConnection } = require('./config/database');
-const { errorLogger, errorResponse, errorInternal } = require('./middlewares/error');
 
 class Server {
     constructor() {
@@ -39,10 +38,7 @@ class Server {
         this.app.use(express.static('public'));
 
         // Handle errors
-        // this.app.use(errorHandler());
-        // this.app.use(errorLogger);
-        // this.app.use(errorResponse);
-        // this.app.use(errorInternal);
+        this.app.use(errorHandler());
     }
 
     routes() {
