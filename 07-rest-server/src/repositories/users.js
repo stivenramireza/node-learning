@@ -14,8 +14,13 @@ const saveUser = async (user) => {
     return savedUser;
 };
 
+const updateUser = async (id, data) => {
+    return User.findByIdAndUpdate(id, data);
+};
+
 module.exports = {
     findUsers,
     findUserById,
     saveUser,
+    updateUser,
 };

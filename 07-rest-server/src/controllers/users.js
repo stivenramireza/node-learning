@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 
-const { searchUsers, searchUserById, postUser } = require('../services/users');
+const { searchUsers, searchUserById, postUser, putUser } = require('../services/users');
 
 const getUsers = async (req = request, res = response) => {
     const { q, name = 'No name', apikey, page = 10, limit } = req.query;
@@ -24,15 +24,16 @@ const postUsers = async (req = request, res = response) => {
     const savedUser = await postUser(user);
     if (!savedUser) return res.status(409).json({ message: 'Email is already registered' });
 
-    return res.json(savedUser);
+    res.json(savedUser);
 };
 
-const putUsers = (req = request, res = response) => {
+const putUsers = async (req = request, res = response) => {
     const { id } = req.params;
-    res.json({
-        msg: 'PUT API - Controller',
-        id,
-    });
+    const { _id, password, google, email, ...data } = req.body;
+
+    const updatedUser = await putUser(id, data, password);
+
+    res.json(updatedUser);
 };
 
 const patchUsers = (req = request, res = response) => {

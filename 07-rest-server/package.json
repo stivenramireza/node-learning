@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node src/index.js",
-        "debug": "nodemon src/index.js"
+        "debug": "nodemon --inspect src/index.js"
     },
     "author": "Stiven Ramírez Arango",
     "license": "ISC",
