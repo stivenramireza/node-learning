@@ -6,12 +6,17 @@ const {
     searchUserById,
     postUser,
     putUser,
+    removeUser,
 } = require('../services/users');
 
 const getUsers = async (req = request, res = response) => {
     const { skip = 0, limit = 5 } = req.query;
-    const total = await getTotalUsers();
-    const users = await searchUsers(Number(skip), Number(limit));
+
+    const [total, users] = await Promise.all([
+        getTotalUsers(),
+        searchUsers(Number(skip), Number(limit)),
+    ]);
+
     res.json({ total, users });
 };
 
@@ -49,10 +54,12 @@ const patchUsers = (req = request, res = response) => {
     });
 };
 
-const deleteUsers = (req = request, res = response) => {
-    res.json({
-        msg: 'DELETE API - Controller',
-    });
+const deleteUsers = async (req = request, res = response) => {
+    const { id } = req.params;
+
+    const deletedUser = await removeUser(id);
+
+    res.json(deletedUser);
 };
 
 module.exports = {

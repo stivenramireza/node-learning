@@ -4,6 +4,7 @@ const {
     findUserById,
     saveUser,
     updateUser,
+    deleteUser,
 } = require('../repositories/users');
 const { encryptPassword } = require('../middlewares/passwords');
 
@@ -31,10 +32,15 @@ const putUser = async (id, data, password) => {
     return await updateUser(id, data);
 };
 
+const removeUser = async (id) => {
+    return await deleteUser(id);
+};
+
 module.exports = {
     searchUsers,
     getTotalUsers,
     searchUserById,
     postUser,
     putUser,
+    removeUser,
 };

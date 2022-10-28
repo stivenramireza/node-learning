@@ -22,10 +22,15 @@ const updateUser = async (id, data) => {
     return User.findByIdAndUpdate(id, data);
 };
 
+const deleteUser = async (id) => {
+    return User.findByIdAndUpdate(id, { status: false });
+};
+
 module.exports = {
     findUsers,
     countUsers,
     findUserById,
     saveUser,
     updateUser,
+    deleteUser,
 };

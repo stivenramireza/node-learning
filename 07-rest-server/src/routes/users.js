@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { check, query } = require('express-validator');
+const { param, query, body } = require('express-validator');
 
 const {
     getUsers,
@@ -17,8 +17,9 @@ const router = Router();
 router.get(
     '/',
     [
-        query('skip', 'Skip must be a number').isNumeric(),
-        query('limit', 'Limit must be a number').isNumeric(),
+        query('skip', 'Skip must be a number').isNumeric().optional(),
+        query('limit', 'Limit must be a number').isNumeric().optional(),
+        validateFields,
     ],
     getUsers
 );
@@ -28,14 +29,13 @@ router.get('/:id', getUserById);
 router.post(
     '/',
     [
-        check('name', 'Name is required').not().isEmpty(),
-        check('password', 'Password is required and must have more than 6 characters').isLength({
+        body('name', 'Name is required').not().isEmpty(),
+        body('password', 'Password is required and must have more than 6 characters').isLength({
             min: 6,
         }),
-        check('email', 'Email is invalid').isEmail(),
-        check('email').custom(existsEmail),
-        // check('role', 'Role is not valid').isIn(['ADMIN', 'USER']),
-        check('role').custom(isValidRole),
+        body('email', 'Email is invalid').isEmail(),
+        body('email').custom(existsEmail),
+        body('role').custom(isValidRole),
         validateFields,
     ],
     postUsers
@@ -44,9 +44,9 @@ router.post(
 router.put(
     '/:id',
     [
-        check('id', 'Invalid id').isMongoId(),
-        check('id').custom(existsUserById),
-        check('role').custom(isValidRole),
+        param('id', 'Invalid id').isMongoId(),
+        param('id').custom(existsUserById),
+        body('role').custom(isValidRole),
         validateFields,
     ],
     putUsers
@@ -54,6 +54,10 @@ router.put(
 
 router.patch('/', patchUsers);
 
-router.delete('/', deleteUsers);
+router.delete(
+    '/:id',
+    [param('id', 'Invalid id').isMongoId(), param('id').custom(existsUserById), validateFields],
+    deleteUsers
+);
 
 module.exports = router;
