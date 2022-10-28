@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 
 const {
     getUsers,
@@ -17,8 +17,8 @@ const router = Router();
 router.get(
     '/',
     [
-        check('skip', 'Skip must be a number').isNumeric(),
-        check('limit', 'Limit must be a number').isNumeric(),
+        query('skip', 'Skip must be a number').isNumeric(),
+        query('limit', 'Limit must be a number').isNumeric(),
     ],
     getUsers
 );
