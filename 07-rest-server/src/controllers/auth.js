@@ -6,15 +6,15 @@ const login = async (req = request, res = response) => {
     try {
         const { email, password } = req.body;
 
-        const loggedUser = await loginUser(req, res, email, password);
-        if (!loggedUser) {
+        const accessToken = await loginUser(req, res, email, password);
+        if (!accessToken) {
             return res.status(401).json({
                 message: 'Invalid credentials',
             });
         }
 
         res.json({
-            message: 'Login OK',
+            accessToken,
         });
     } catch (err) {
         console.error(err);

@@ -2,6 +2,7 @@ const { request, response } = require('express');
 
 const { searchUserByEmail } = require('../services/users');
 const { validatePassword } = require('../middlewares/passwords');
+const { generateToken } = require('../middlewares/jwt');
 
 const loginUser = async (req = request, res = response, email, password) => {
     // Check if email exists
@@ -15,7 +16,9 @@ const loginUser = async (req = request, res = response, email, password) => {
     const isValidPassword = validatePassword(password, user.password);
     if (!isValidPassword) return false;
 
-    return true;
+    // Generate JWT
+    const token = await generateToken(user.id);
+    return token;
 };
 
 module.exports = {
