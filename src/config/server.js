@@ -13,9 +13,7 @@ class Server {
         // Set app environment variables
         this.app.set('port', PORT || 3000);
         this.app.set('environment', ENV || 'development');
-
-        // Set api version
-        this.apiVersion = API_VERSION;
+        this.app.set('api_version', API_VERSION || '/api/v1');
 
         // Connect to database
         this.connectDatabase();
@@ -46,8 +44,8 @@ class Server {
     }
 
     routes() {
-        this.app.use(`${this.apiVersion}/auth`, require('../routes/auth'));
-        this.app.use(`${this.apiVersion}/users`, require('../routes/users'));
+        this.app.use(`${this.app.get('api_version')}/auth`, require('../routes/auth'));
+        this.app.use(`${this.app.get('api_version')}/users`, require('../routes/users'));
     }
 
     start() {
