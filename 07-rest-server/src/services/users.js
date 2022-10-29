@@ -2,6 +2,7 @@ const {
     findUsers,
     countUsers,
     findUserById,
+    findUserByEmail,
     saveUser,
     updateUser,
     deleteUser,
@@ -18,6 +19,10 @@ const getTotalUsers = async () => {
 
 const searchUserById = async (id) => {
     return await findUserById(id);
+};
+
+const searchUserByEmail = async (email) => {
+    return await findUserByEmail(email);
 };
 
 const postUser = async (user) => {
@@ -40,6 +45,7 @@ module.exports = {
     searchUsers,
     getTotalUsers,
     searchUserById,
+    searchUserByEmail,
     postUser,
     putUser,
     removeUser,

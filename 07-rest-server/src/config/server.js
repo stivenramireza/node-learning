@@ -3,6 +3,7 @@ const cors = require('cors');
 const errorHandler = require('errorhandler');
 
 const { dbConnection } = require('./database');
+const { PORT, ENV, API_VERSION } = require('../utils/secrets');
 
 class Server {
     constructor() {
@@ -10,8 +11,11 @@ class Server {
         this.app = express();
 
         // Set app environment variables
-        this.app.set('port', process.env.PORT || 3000);
-        this.app.set('environment', process.env.ENV || 'development');
+        this.app.set('port', PORT || 3000);
+        this.app.set('environment', ENV || 'development');
+
+        // Set api version
+        this.apiVersion = API_VERSION;
 
         // Connect to database
         this.connectDatabase();
@@ -42,7 +46,8 @@ class Server {
     }
 
     routes() {
-        this.app.use('/api/v1/users', require('../routes/users'));
+        this.app.use(`${this.apiVersion}/auth`, require('../routes/auth'));
+        this.app.use(`${this.apiVersion}/users`, require('../routes/users'));
     }
 
     start() {

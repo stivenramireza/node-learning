@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Server = require('./config/server');
 
 process.on('uncaughtException', (error) => {
-    console.error(`Unhandled exception: ${error.message}`);
+    console.error(`Unhandled exception: ${error.stack}`);
 });
 
 process.on('unhandledRejection', (error) => {
-    console.error(`Unhadled rejection: ${error.message}`);
+    console.error(`Unhadled rejection: ${error.stack}`);
 });
 
 process.on('SIGINT', () => {

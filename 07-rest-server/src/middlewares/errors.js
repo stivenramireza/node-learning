@@ -1,3 +1,5 @@
+const { request, response } = require('express');
+
 const { BadRequest, Unauthorized, Forbidden, NotFound, Conflict } = require('../utils/exceptions');
 const {
     badRequestResponse,
@@ -8,8 +10,8 @@ const {
     internalResponse,
 } = require('../utils/responses');
 
-const errorLogger = (err, req, res, next) => {
-    console.error(err);
+const errorLogger = (err, req = request, res = response, next) => {
+    console.error(err.stack);
     next(err);
 };
 

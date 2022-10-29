@@ -12,6 +12,10 @@ const findUserById = async (id) => {
     return await User.findOne({ id });
 };
 
+const findUserByEmail = async (email) => {
+    return await User.findOne({ email });
+};
+
 const saveUser = async (user) => {
     const savedUser = new User(user);
     await savedUser.save();
@@ -30,6 +34,7 @@ module.exports = {
     findUsers,
     countUsers,
     findUserById,
+    findUserByEmail,
     saveUser,
     updateUser,
     deleteUser,
