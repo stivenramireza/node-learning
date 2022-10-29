@@ -24,6 +24,11 @@ const generateToken = (uid = '') => {
     });
 };
 
+const validateToken = (token) => {
+    return jwt.verify(token, JWT_SECRET_KEY);
+};
+
 module.exports = {
     generateToken,
+    validateToken,
 };
