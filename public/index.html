@@ -30,13 +30,15 @@
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script>
             function handleCredentialResponse(response) {
-                // Google token: TOKEN_ID
-                // console.log('TOKEN_ID:', response.credential);
+                const url = window.location.hostname.includes('localhost')
+                    ? 'http://localhost:3000/api/v1/auth/login/google'
+                    : 'https://coffee-shop-7.herokuapp.com/api/v1/auth/login/google';
+
                 const body = {
                     idToken: response.credential,
                 };
 
-                fetch('http://localhost:3000/api/v1/auth/login/google', {
+                fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
