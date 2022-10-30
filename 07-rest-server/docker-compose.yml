@@ -14,7 +14,7 @@ services:
             PORT: ${PORT}
             ENV: ${ENV}
             API_VERSION: ${API_VERSION}
-            DB_HOST: ${DB_HOST}
+            DB_HOST: mongo-db
             DB_PORT: ${DB_PORT}
             DB_NAME: ${DB_NAME}
             DB_USERNAME: ${DB_USERNAME}
