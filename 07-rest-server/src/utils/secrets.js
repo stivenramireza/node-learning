@@ -15,6 +15,10 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 /** JWT secrets */
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
+/** Google Identity secrets */
+const GOGGLE_CLIENT_ID = process.env.GOGGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+
 module.exports = {
     PORT,
     ENV,
@@ -25,4 +29,6 @@ module.exports = {
     DB_USERNAME,
     DB_PASSWORD,
     JWT_SECRET_KEY,
+    GOGGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
 };
