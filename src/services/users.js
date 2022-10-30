@@ -25,6 +25,10 @@ const searchUserByEmail = async (email) => {
     return await findUserByEmail(email);
 };
 
+const postUserWithoutPassword = async (user) => {
+    return await saveUser(user);
+};
+
 const postUser = async (user) => {
     user.password = encryptPassword(user.password);
     return await saveUser(user);
@@ -50,6 +54,7 @@ module.exports = {
     searchUserById,
     searchUserByEmail,
     postUser,
+    postUserWithoutPassword,
     putUser,
     removeUser,
 };

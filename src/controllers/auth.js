@@ -1,12 +1,13 @@
-const { request, response } = require('express');
+const { request, response, json } = require('express');
 
-const { loginUser } = require('../services/auth');
+const { loginUser, loginGoogleUser } = require('../services/auth');
+const { verifyGoogleToken } = require('../middlewares/googleAuth');
 
 const login = async (req = request, res = response) => {
     try {
         const { email, password } = req.body;
 
-        const accessToken = await loginUser(req, res, email, password);
+        const accessToken = await loginUser(email, password);
         if (!accessToken) {
             return res.status(401).json({
                 message: 'Invalid credentials',
@@ -24,6 +25,32 @@ const login = async (req = request, res = response) => {
     }
 };
 
+const loginGoogle = async (req = request, res = response) => {
+    const { idToken } = req.body;
+
+    try {
+        const googleUser = await verifyGoogleToken(idToken);
+
+        const accessToken = await loginGoogleUser(googleUser);
+        if (!accessToken) {
+            return res.status(401).json({
+                message: 'Invalid credentials',
+            });
+        }
+
+        res.json({
+            email: googleUser.email,
+            accessToken,
+        });
+    } catch (err) {
+        console.error(err);
+        json.status(400).json({
+            message: 'Invalid token',
+        });
+    }
+};
+
 module.exports = {
     login,
+    loginGoogle,
 };
