@@ -9,7 +9,7 @@ const API_VERSION = process.env.API_VERSION;
 const DB_HOST = process.env.DB_HOST;
 const DB_PORT = process.env.DB_PORT;
 const DB_NAME = process.env.DB_NAME;
-const DB_USER = process.env.DB_USER;
+const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 
 /** JWT secrets */
@@ -22,7 +22,7 @@ module.exports = {
     DB_HOST,
     DB_PORT,
     DB_NAME,
-    DB_USER,
+    DB_USERNAME,
     DB_PASSWORD,
     JWT_SECRET_KEY,
 };
