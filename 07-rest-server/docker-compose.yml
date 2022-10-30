@@ -3,7 +3,7 @@ version: '3.1'
 services:
     coffee-shop-api:
         container_name: coffee-shop-api
-        image: stivenramireza/coffee-shop-api:1.0.1
+        image: stivenramireza/coffee-shop-api:1.0.3
         ports:
             - 3000:3000
         networks:
@@ -30,7 +30,7 @@ services:
             - coffee-shop
         volumes:
             - mongo-db-data:/data/db
-        command: mongod --oplogSize 128
+        command: mongod --ipv6
         environment:
             MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
             MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
