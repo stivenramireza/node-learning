@@ -1,7 +1,9 @@
 const { Router } = require('express');
 const { body } = require('express-validator');
 
-const { validateFields } = require('../middlewares/validations');
+const { jwtAuth, validateFields } = require('../middlewares');
+
+const { createCategory } = require('../controllers/categories');
 
 const router = Router();
 
@@ -17,11 +19,11 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-    res.json({
-        message: 'POST categories',
-    });
-});
+router.post(
+    '/',
+    [jwtAuth, body('name', 'Name is required').not().isEmpty(), validateFields],
+    createCategory
+);
 
 router.put('/:id', (req, res) => {
     res.json({
