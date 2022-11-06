@@ -1,10 +1,7 @@
 const { Category, User } = require('../models');
 
 const findCategories = async (skip, limit) => {
-    return await Category.find({ status: true }).skip(skip).limit(limit).populate({
-        path: 'user',
-        select: '-__v -password',
-    });
+    return await Category.find({ status: true }).populate('user', 'name').skip(skip).limit(limit);
 };
 
 const countCategories = async () => {
@@ -12,10 +9,7 @@ const countCategories = async () => {
 };
 
 const findCategoryById = async (id) => {
-    return await Category.findById(id).populate({
-        path: 'user',
-        select: '-__v -password',
-    });
+    return await Category.findById(id).populate('user', 'name');
 };
 
 const findCategoryByName = async (name) => {
