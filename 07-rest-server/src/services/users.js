@@ -43,7 +43,7 @@ const putUser = async (id, data, password) => {
 
 const removeUser = async (id) => {
     const user = await searchUserById(id);
-    if (!user.status) return false;
+    if (!user) return false;
 
     return await deleteUser(id);
 };

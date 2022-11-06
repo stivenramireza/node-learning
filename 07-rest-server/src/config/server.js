@@ -49,6 +49,7 @@ class Server {
         this.app.use(`${this.apiVersion}/auth`, require('../routes/auth'));
         this.app.use(`${this.apiVersion}/users`, require('../routes/users'));
         this.app.use(`${this.apiVersion}/categories`, require('../routes/categories'));
+        this.app.use(`${this.apiVersion}/products`, require('../routes/products'));
     }
 
     start() {

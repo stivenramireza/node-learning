@@ -44,7 +44,7 @@ const loginGoogle = async (req = request, res = response) => {
         });
     } catch (err) {
         console.error(err);
-        json.status(400).json({
+        res.status(401).json({
             message: 'Invalid token',
         });
     }

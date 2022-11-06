@@ -9,7 +9,7 @@ const countUsers = async () => {
 };
 
 const findUserById = async (id) => {
-    return await User.findOne({ id });
+    return await User.findOne({ _id: id, status: true });
 };
 
 const findUserByEmail = async (email) => {
