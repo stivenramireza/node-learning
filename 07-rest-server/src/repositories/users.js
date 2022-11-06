@@ -23,11 +23,11 @@ const saveUser = async (user) => {
 };
 
 const updateUser = async (id, data) => {
-    return await User.findByIdAndUpdate(id, data);
+    return await User.findByIdAndUpdate(id, data, { new: true });
 };
 
 const deleteUser = async (id) => {
-    return await User.findByIdAndUpdate(id, { status: false });
+    return await User.findByIdAndUpdate(id, { status: false }, { new: true });
 };
 
 module.exports = {

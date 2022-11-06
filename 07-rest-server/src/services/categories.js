@@ -17,6 +17,9 @@ const getTotalCategories = async () => {
 };
 
 const searchCategoryById = async (id) => {
+    const category = await findCategoryById(id);
+    if (!category) return false;
+
     return await findCategoryById(id);
 };
 
@@ -32,14 +35,9 @@ const postCategory = async (name, userId) => {
     return await saveCategory(data);
 };
 
-const putCategory = async (id, name, userId) => {
-    const category = await findCategoryByName(name);
+const putCategory = async (id, data) => {
+    const category = await findCategoryByName(data.name);
     if (category) return false;
-
-    const data = {
-        name,
-        user: userId,
-    };
 
     return await updateCategory(id, data);
 };

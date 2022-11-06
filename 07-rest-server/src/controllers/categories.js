@@ -41,10 +41,12 @@ const createCategory = async (req = request, res = response) => {
 
 const putCategories = async (req = request, res = response) => {
     const { id } = req.params;
-    const name = req.body.name.toUpperCase();
-    const userId = req.user._id;
+    const { status, user, ...data } = req.body;
 
-    const updatedCategory = await putCategory(id, name, userId);
+    data.name = data.name.toUpperCase();
+    data.user = req.user._id;
+
+    const updatedCategory = await putCategory(id, data);
     if (!updatedCategory) return res.status(409).json({ message: 'Category could not be updated' });
 
     res.json(updatedCategory);

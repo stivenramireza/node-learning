@@ -1,4 +1,4 @@
-const { Category, User } = require('../models');
+const { Category } = require('../models');
 
 const findCategories = async (skip, limit) => {
     return await Category.find({ status: true }).populate('user', 'name').skip(skip).limit(limit);
@@ -9,7 +9,7 @@ const countCategories = async () => {
 };
 
 const findCategoryById = async (id) => {
-    return await Category.findById(id).populate('user', 'name');
+    return await Category.findOne({ _id: id, status: true }).populate('user', 'name');
 };
 
 const findCategoryByName = async (name) => {
@@ -23,11 +23,14 @@ const saveCategory = async (category) => {
 };
 
 const updateCategory = async (id, data) => {
-    return await User.findByIdAndUpdate(id, data);
+    return await Category.findByIdAndUpdate(id, data, { new: true }).populate('user', 'name');
 };
 
 const deleteCategory = async (id) => {
-    return await User.findByIdAndUpdate(id, { status: false });
+    return await Category.findByIdAndUpdate(id, { status: false }, { new: true }).populate(
+        'user',
+        'name'
+    );
 };
 
 module.exports = {
