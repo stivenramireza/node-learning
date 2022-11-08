@@ -1,4 +1,4 @@
-const { request, response, json } = require('express');
+const { request, response } = require('express');
 
 const { loginUser, loginGoogleUser } = require('../services/auth');
 const { verifyGoogleToken } = require('../middlewares/googleAuth');

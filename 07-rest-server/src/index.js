@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Server = require('./config/server');
+const App = require('./app');
 
 process.on('uncaughtException', (error) => {
     console.error(`Unhandled exception: ${error.stack}`);
@@ -17,5 +17,5 @@ process.on('SIGINT', () => {
     });
 });
 
-const server = new Server();
-server.start();
+const app = new App();
+app.start();
