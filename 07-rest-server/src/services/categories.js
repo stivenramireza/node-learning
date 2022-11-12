@@ -20,7 +20,14 @@ const searchCategoryById = async (id) => {
     const category = await findCategoryById(id);
     if (!category) return false;
 
-    return await findCategoryById(id);
+    return category;
+};
+
+const searchCategoryByName = async (name) => {
+    const category = await findCategoryByName(name);
+    if (!category) return false;
+
+    return category;
 };
 
 const postCategory = async (name, userId) => {
@@ -53,6 +60,7 @@ module.exports = {
     searchCategories,
     getTotalCategories,
     searchCategoryById,
+    searchCategoryByName,
     postCategory,
     putCategory,
     removeCategory,
