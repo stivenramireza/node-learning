@@ -5,7 +5,7 @@ const errorHandler = require('errorhandler');
 const { dbConnection } = require('./config/database');
 const { PORT, ENV, API_VERSION } = require('./utils/secrets');
 
-const { authRoutes, userRoutes, categoryRoutes, productRoutes } = require('./routes');
+const { authRoutes, userRoutes, categoryRoutes, productRoutes, searchRoutes } = require('./routes');
 
 class App {
     constructor() {
@@ -50,6 +50,7 @@ class App {
         this.app.use(`${this.app.get('api_version')}/users`, userRoutes);
         this.app.use(`${this.app.get('api_version')}/categories`, categoryRoutes);
         this.app.use(`${this.app.get('api_version')}/products`, productRoutes);
+        this.app.use(`${this.app.get('api_version')}/search`, searchRoutes);
     }
 
     start() {

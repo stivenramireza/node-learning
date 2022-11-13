@@ -16,6 +16,20 @@ const findUserByEmail = async (email) => {
     return await User.findOne({ email });
 };
 
+const findUserByName = async (name) => {
+    return await User.findOne({ name: { $regex: name, $options: 'i' } });
+};
+
+const findUsersByParams = async (term) => {
+    return await User.find({
+        $or: [
+            { name: { $regex: term, $options: 'i' } },
+            { email: { $regex: term, $options: 'i' } },
+        ],
+        $and: [{ status: true }],
+    });
+};
+
 const saveUser = async (user) => {
     const savedUser = new User(user);
     await savedUser.save();
@@ -35,6 +49,8 @@ module.exports = {
     countUsers,
     findUserById,
     findUserByEmail,
+    findUserByName,
+    findUsersByParams,
     saveUser,
     updateUser,
     deleteUser,

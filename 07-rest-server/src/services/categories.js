@@ -3,6 +3,7 @@ const {
     countCategories,
     findCategoryById,
     findCategoryByName,
+    findCategoriesByParams,
     saveCategory,
     updateCategory,
     deleteCategory,
@@ -28,6 +29,10 @@ const searchCategoryByName = async (name) => {
     if (!category) return false;
 
     return category;
+};
+
+const searchCategoriesByParams = async (term) => {
+    return await findCategoriesByParams(term);
 };
 
 const postCategory = async (name, userId) => {
@@ -61,6 +66,7 @@ module.exports = {
     getTotalCategories,
     searchCategoryById,
     searchCategoryByName,
+    searchCategoriesByParams,
     postCategory,
     putCategory,
     removeCategory,

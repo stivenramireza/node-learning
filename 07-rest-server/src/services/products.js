@@ -2,6 +2,7 @@ const {
     findProducts,
     findProductById,
     findProductByName,
+    findProductsByParams,
     countProducts,
     saveProduct,
     updateProduct,
@@ -22,6 +23,10 @@ const searchProductById = async (id) => {
     if (!product) return false;
 
     return product;
+};
+
+const searchProductsByParams = async (term) => {
+    return await findProductsByParams(term);
 };
 
 const postProduct = async (data) => {
@@ -75,6 +80,7 @@ module.exports = {
     searchProducts,
     getTotalProducts,
     searchProductById,
+    searchProductsByParams,
     postProduct,
     putProduct,
     removeProduct,

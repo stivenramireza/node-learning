@@ -22,7 +22,17 @@ const findProductById = async (id) => {
 };
 
 const findProductByName = async (name) => {
-    return await Product.findOne({ name });
+    return await Product.findOne({ name }).populate(populatedUser).populate(populatedCategory);
+};
+
+const findProductsByParams = async (term) => {
+    return await Product.find({
+        $or: [
+            { name: { $regex: term, $options: 'i' } },
+            { description: { $regex: term, $options: 'i' } },
+        ],
+        $and: [{ status: true }],
+    });
 };
 
 const saveProduct = async (data) => {
@@ -48,6 +58,7 @@ module.exports = {
     countProducts,
     findProductById,
     findProductByName,
+    findProductsByParams,
     saveProduct,
     updateProduct,
     removeProduct,

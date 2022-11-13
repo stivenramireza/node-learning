@@ -16,6 +16,13 @@ const findCategoryByName = async (name) => {
     return await Category.findOne({ name });
 };
 
+const findCategoriesByParams = async (term) => {
+    return await Category.find({ name: { $regex: term, $options: 'i' }, status: true }).populate(
+        'user',
+        'name'
+    );
+};
+
 const saveCategory = async (category) => {
     const savedCategory = new Category(category);
     await savedCategory.save();
@@ -38,6 +45,7 @@ module.exports = {
     findCategoryById,
     countCategories,
     findCategoryByName,
+    findCategoriesByParams,
     saveCategory,
     updateCategory,
     deleteCategory,

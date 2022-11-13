@@ -3,6 +3,8 @@ const {
     countUsers,
     findUserById,
     findUserByEmail,
+    findUserByName,
+    findUsersByParams,
     saveUser,
     updateUser,
     deleteUser,
@@ -23,6 +25,14 @@ const searchUserById = async (id) => {
 
 const searchUserByEmail = async (email) => {
     return await findUserByEmail(email);
+};
+
+const searchUserByName = async (name) => {
+    return await findUserByName(name);
+};
+
+const searchUsersByParams = async (term) => {
+    return await findUsersByParams(term);
 };
 
 const postUserWithoutPassword = async (user) => {
@@ -53,6 +63,8 @@ module.exports = {
     getTotalUsers,
     searchUserById,
     searchUserByEmail,
+    searchUserByName,
+    searchUsersByParams,
     postUser,
     postUserWithoutPassword,
     putUser,
