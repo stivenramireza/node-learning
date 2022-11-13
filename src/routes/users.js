@@ -58,7 +58,6 @@ router.delete(
     '/:id',
     [
         jwtAuth,
-        // isAdminRole,
         hasRole('ADMIN', 'SALES'),
         param('id', 'Invalid id').isMongoId(),
         param('id').custom(existsUserById),

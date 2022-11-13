@@ -1,4 +1,4 @@
-const { request, response, json } = require('express');
+const { request, response } = require('express');
 
 const { loginUser, loginGoogleUser } = require('../services/auth');
 const { verifyGoogleToken } = require('../middlewares/googleAuth');
@@ -44,7 +44,7 @@ const loginGoogle = async (req = request, res = response) => {
         });
     } catch (err) {
         console.error(err);
-        json.status(400).json({
+        res.status(401).json({
             message: 'Invalid token',
         });
     }

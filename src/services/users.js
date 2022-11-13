@@ -3,6 +3,8 @@ const {
     countUsers,
     findUserById,
     findUserByEmail,
+    findUserByName,
+    findUsersByParams,
     saveUser,
     updateUser,
     deleteUser,
@@ -25,6 +27,14 @@ const searchUserByEmail = async (email) => {
     return await findUserByEmail(email);
 };
 
+const searchUserByName = async (name) => {
+    return await findUserByName(name);
+};
+
+const searchUsersByParams = async (term) => {
+    return await findUsersByParams(term);
+};
+
 const postUserWithoutPassword = async (user) => {
     return await saveUser(user);
 };
@@ -43,7 +53,7 @@ const putUser = async (id, data, password) => {
 
 const removeUser = async (id) => {
     const user = await searchUserById(id);
-    if (!user.status) return false;
+    if (!user) return false;
 
     return await deleteUser(id);
 };
@@ -53,6 +63,8 @@ module.exports = {
     getTotalUsers,
     searchUserById,
     searchUserByEmail,
+    searchUserByName,
+    searchUsersByParams,
     postUser,
     postUserWithoutPassword,
     putUser,

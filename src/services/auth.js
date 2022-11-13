@@ -15,6 +15,9 @@ const loginUser = async (email, password) => {
     // Check if the user is active
     if (!user.status) return false;
 
+    // Check if the user has google login
+    if (user.google) return false;
+
     // Check if the password is valid
     const isValidPassword = validatePassword(password, user.password);
     if (!isValidPassword) return false;

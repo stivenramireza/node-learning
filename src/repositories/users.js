@@ -9,11 +9,25 @@ const countUsers = async () => {
 };
 
 const findUserById = async (id) => {
-    return await User.findOne({ id });
+    return await User.findOne({ _id: id, status: true });
 };
 
 const findUserByEmail = async (email) => {
     return await User.findOne({ email });
+};
+
+const findUserByName = async (name) => {
+    return await User.findOne({ name: { $regex: name, $options: 'i' } });
+};
+
+const findUsersByParams = async (term) => {
+    return await User.find({
+        $or: [
+            { name: { $regex: term, $options: 'i' } },
+            { email: { $regex: term, $options: 'i' } },
+        ],
+        $and: [{ status: true }],
+    });
 };
 
 const saveUser = async (user) => {
@@ -23,11 +37,11 @@ const saveUser = async (user) => {
 };
 
 const updateUser = async (id, data) => {
-    return User.findByIdAndUpdate(id, data);
+    return await User.findByIdAndUpdate(id, data, { new: true });
 };
 
 const deleteUser = async (id) => {
-    return User.findByIdAndUpdate(id, { status: false });
+    return await User.findByIdAndUpdate(id, { status: false }, { new: true });
 };
 
 module.exports = {
@@ -35,6 +49,8 @@ module.exports = {
     countUsers,
     findUserById,
     findUserByEmail,
+    findUserByName,
+    findUsersByParams,
     saveUser,
     updateUser,
     deleteUser,
