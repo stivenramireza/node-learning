@@ -7,11 +7,14 @@ const upload = async (req = request, res = response) => {
         return res.status(400).json({ message: 'Missing file' });
     }
 
-    const fileName = await uploadFile(req.files);
-
-    res.json({
-        fileName,
-    });
+    try {
+        const fileName = await uploadFile(req.files, ['txt', 'jpg', 'md'], 'texts');
+        res.json({
+            fileName,
+        });
+    } catch (error) {
+        res.status(400).json({ message: error });
+    }
 };
 
 module.exports = { upload };

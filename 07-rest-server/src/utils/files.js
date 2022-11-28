@@ -13,7 +13,7 @@ const uploadFile = (files, validExts = validExtensions, directory = '') => {
         const { cuttedName: fileName, ext } = getFilename(file);
 
         if (!validExts.includes(ext)) {
-            reject(`Ext is not allowed - ${validExtensions}`);
+            reject(`Ext is not allowed - ${validExts}`);
         }
 
         const tmpName = uuid() + '.' + ext;
