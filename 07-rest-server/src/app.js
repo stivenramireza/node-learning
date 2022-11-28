@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
+const fileUpload = require('express-fileupload');
 
 const { dbConnection } = require('./config/database');
 const { PORT, ENV, API_VERSION } = require('./utils/secrets');
@@ -47,6 +48,14 @@ class App {
 
         // Public directory
         this.app.use(express.static('public'));
+
+        // Files upload
+        this.app.use(
+            fileUpload({
+                useTempFiles: true,
+                tempFileDir: '/tmp/',
+            })
+        );
 
         // Handle errors
         this.app.use(errorHandler());
