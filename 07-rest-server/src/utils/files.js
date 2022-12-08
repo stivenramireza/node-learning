@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 
 const { v4: uuid } = require('uuid');
@@ -8,6 +9,21 @@ const getFilename = (file) => {
     const cuttedName = file.name.split('.');
     const ext = cuttedName[cuttedName.length - 1];
     return { cuttedName, ext };
+};
+
+const getImagePath = (image, collection) => {
+    const imagePath = path.join(__dirname, '../../files/', collection, image);
+    if (fs.existsSync(imagePath)) return imagePath;
+    return false;
+};
+
+const getDefaultImagePath = () => {
+    return path.join(__dirname, '../../assets/', 'no_Image_available.jpg');
+};
+
+const cleanPreviousImage = (image, collection) => {
+    const imagePath = path.join(__dirname, '../../files/', collection, image);
+    if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
 };
 
 const uploadFile = (files, validExts = validExtensions, directory = '') => {
@@ -31,4 +47,4 @@ const uploadFile = (files, validExts = validExtensions, directory = '') => {
     });
 };
 
-module.exports = { uploadFile };
+module.exports = { getImagePath, getDefaultImagePath, cleanPreviousImage, uploadFile };
