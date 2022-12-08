@@ -11,6 +11,16 @@ const getFilename = (file) => {
     return { cuttedName, ext };
 };
 
+const getImagePath = (image, collection) => {
+    const imagePath = path.join(__dirname, '../../files/', collection, image);
+    if (fs.existsSync(imagePath)) return imagePath;
+    return false;
+};
+
+const getDefaultImagePath = () => {
+    return path.join(__dirname, '../../assets/', 'no_Image_available.jpg');
+};
+
 const cleanPreviousImage = (image, collection) => {
     const imagePath = path.join(__dirname, '../../files/', collection, image);
     if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
@@ -37,4 +47,4 @@ const uploadFile = (files, validExts = validExtensions, directory = '') => {
     });
 };
 
-module.exports = { cleanPreviousImage, uploadFile };
+module.exports = { getImagePath, getDefaultImagePath, cleanPreviousImage, uploadFile };
