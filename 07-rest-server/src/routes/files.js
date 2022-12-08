@@ -12,9 +12,9 @@ router.post('/', [isValidFile, validateFields], upload);
 router.put(
     '/:collection/:id',
     [
+        isValidFile,
         param('id', 'Id is not valid').isMongoId(),
         param('collection').custom((c) => allowedCollections(c, ['users', 'products'])),
-        isValidFile,
         validateFields,
     ],
     putImage

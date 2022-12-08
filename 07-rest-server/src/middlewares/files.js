@@ -1,11 +1,8 @@
 const { request, response } = require('express');
 
 const isValidFile = (req = request, res = response, next) => {
-    const files = req.files;
-    if (!files || !files.file) {
-        return res.status(400).json({
-            message: 'File not uploaded',
-        });
+    if (!req.files || !Object.keys(req.files).length || !req.files.file) {
+        return res.status(400).json({ message: 'Missing file' });
     }
     next();
 };
