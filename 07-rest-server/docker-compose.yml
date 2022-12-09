@@ -3,7 +3,7 @@ version: '3.1'
 services:
     coffee-shop-api:
         container_name: coffee-shop-api
-        image: stivenramireza/coffee-shop-api:1.0.3
+        image: stivenramireza/coffee-shop-api:1.0.5
         ports:
             - 3000:3000
         networks:
@@ -20,6 +20,9 @@ services:
             DB_USERNAME: ${DB_USERNAME}
             DB_PASSWORD: ${DB_PASSWORD}
             JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+            GOGGLE_CLIENT_ID: ${GOGGLE_CLIENT_ID}
+            GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+            CLOUDINARY_URL: ${CLOUDINARY_URL}
 
     mongo-db:
         container_name: mongo-db
