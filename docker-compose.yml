@@ -20,6 +20,9 @@ services:
             DB_USERNAME: ${DB_USERNAME}
             DB_PASSWORD: ${DB_PASSWORD}
             JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+            GOGGLE_CLIENT_ID: ${GOGGLE_CLIENT_ID}
+            GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+            CLOUDINARY_URL: ${CLOUDINARY_URL}
 
     mongo-db:
         container_name: mongo-db
