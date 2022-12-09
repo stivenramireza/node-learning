@@ -3,7 +3,7 @@ FROM node:14.20.1-alpine AS dependencies
 WORKDIR /app
 
 COPY package*.json /app
-RUN npm ci
+RUN npm install
 
 # Stage builder
 FROM node:14.20.1-alpine AS builder
