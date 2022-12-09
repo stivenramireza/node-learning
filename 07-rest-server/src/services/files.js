@@ -1,4 +1,10 @@
-const { getImagePath, cleanPreviousImage, uploadFile } = require('../utils');
+const {
+    getImagePath,
+    cleanPreviousImage,
+    cleanPreviousImageCloudinary,
+    uploadFile,
+    uploadFileCloudinary,
+} = require('../utils');
 
 const getImage = async (model, collection) => {
     const { img } = model;
@@ -15,4 +21,17 @@ const updateImage = async (model, files, collection) => {
     await model.save();
 };
 
-module.exports = { getImage, updateImage };
+const updateImageCloudinary = async (model, files) => {
+    const { img } = model;
+
+    if (img) await cleanPreviousImageCloudinary(img);
+
+    const { tempFilePath } = files.file;
+
+    const { secure_url: secureUrl } = await uploadFileCloudinary(tempFilePath);
+
+    model.img = secureUrl;
+    await model.save();
+};
+
+module.exports = { getImage, updateImage, updateImageCloudinary };

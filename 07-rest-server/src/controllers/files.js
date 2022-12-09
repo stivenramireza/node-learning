@@ -2,7 +2,7 @@ const { request, response } = require('express');
 
 const { searchUserById } = require('../services/users');
 const { searchProductById } = require('../services/products');
-const { getImage, updateImage } = require('../services/files');
+const { getImage, updateImage, updateImageCloudinary } = require('../services/files');
 const { getDefaultImagePath, uploadFile } = require('../utils');
 
 const upload = async (req = request, res = response) => {
@@ -64,4 +64,27 @@ const putImage = async (req = request, res = response) => {
     res.json({ model });
 };
 
-module.exports = { upload, showImage, putImage };
+const putImageCloudinary = async (req = request, res = response) => {
+    const { id, collection } = req.params;
+
+    let model;
+
+    switch (collection) {
+        case 'users':
+            model = await searchUserById(id);
+            if (!model) return res.status(404).json({ message: 'User not found' });
+            break;
+        case 'products':
+            model = await searchProductById(id);
+            if (!model) return res.status(404).json({ message: 'Product not found' });
+            break;
+        default:
+            return res.status(500).json({ message: 'It must be validated' });
+    }
+
+    await updateImageCloudinary(model, req.files);
+
+    res.json({ model });
+};
+
+module.exports = { upload, showImage, putImageCloudinary };

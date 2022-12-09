@@ -3,6 +3,7 @@ const files = require('./files');
 const responses = require('./responses');
 const secrets = require('./secrets');
 const validators = require('./validators');
+const cloudinary = require('./cloudinary');
 
 module.exports = {
     ...exceptions,
@@ -10,4 +11,5 @@ module.exports = {
     ...responses,
     ...secrets,
     ...validators,
+    ...cloudinary,
 };
