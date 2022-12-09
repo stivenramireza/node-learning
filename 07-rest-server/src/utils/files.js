@@ -3,6 +3,8 @@ const path = require('path');
 
 const { v4: uuid } = require('uuid');
 
+const { deleteFileFromCloudinary } = require('./cloudinary');
+
 const validExtensions = ['png', 'jpg', 'jpeg', 'gif'];
 
 const getFilename = (file) => {
@@ -26,6 +28,14 @@ const cleanPreviousImage = (image, collection) => {
     if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
 };
 
+const cleanPreviousImageCloudinary = async (image) => {
+    const nameArr = image.split('/');
+    const name = nameArr[nameArr.length - 1];
+    const [publicId] = name.split('.');
+
+    await deleteFileFromCloudinary(publicId);
+};
+
 const uploadFile = (files, validExts = validExtensions, directory = '') => {
     return new Promise((resolve, reject) => {
         const { file } = files;
@@ -47,4 +57,10 @@ const uploadFile = (files, validExts = validExtensions, directory = '') => {
     });
 };
 
-module.exports = { getImagePath, getDefaultImagePath, cleanPreviousImage, uploadFile };
+module.exports = {
+    getImagePath,
+    getDefaultImagePath,
+    cleanPreviousImage,
+    cleanPreviousImageCloudinary,
+    uploadFile,
+};
