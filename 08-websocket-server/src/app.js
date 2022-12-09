@@ -22,6 +22,9 @@ class App {
 
         // Middlewares
         this.middlewares();
+
+        // Sockets
+        this.sockets();
     }
 
     middlewares() {
@@ -30,6 +33,16 @@ class App {
 
         // Public directory
         this.app.use(express.static('public'));
+    }
+
+    sockets() {
+        this.io.on('connection', (socket) => {
+            console.log('Client connected: ', socket.id);
+
+            socket.on('disconnect', () => {
+                console.log('Client disconnected: ', socket.id);
+            });
+        });
     }
 
     start() {
