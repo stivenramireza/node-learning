@@ -1,11 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
+const fileUpload = require('express-fileupload');
 
 const { dbConnection } = require('./config/database');
 const { PORT, ENV, API_VERSION } = require('./utils/secrets');
 
-const { authRoutes, userRoutes, categoryRoutes, productRoutes, searchRoutes } = require('./routes');
+const {
+    authRoutes,
+    userRoutes,
+    categoryRoutes,
+    productRoutes,
+    searchRoutes,
+    fileRoutes,
+} = require('./routes');
 
 class App {
     constructor() {
@@ -41,6 +49,15 @@ class App {
         // Public directory
         this.app.use(express.static('public'));
 
+        // Files upload
+        this.app.use(
+            fileUpload({
+                useTempFiles: true,
+                tempFileDir: '/tmp/',
+                createParentPath: true,
+            })
+        );
+
         // Handle errors
         this.app.use(errorHandler());
     }
@@ -51,6 +68,7 @@ class App {
         this.app.use(`${this.app.get('api_version')}/categories`, categoryRoutes);
         this.app.use(`${this.app.get('api_version')}/products`, productRoutes);
         this.app.use(`${this.app.get('api_version')}/search`, searchRoutes);
+        this.app.use(`${this.app.get('api_version')}/files`, fileRoutes);
     }
 
     start() {

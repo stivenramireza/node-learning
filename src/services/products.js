@@ -9,7 +9,7 @@ const {
     removeProduct,
 } = require('../repositories/products');
 
-const { searchCategoryByName } = require('../services/categories');
+const { searchCategoryByName } = require('./categories');
 
 const searchProducts = async (offset, limit) => {
     return await findProducts(offset, limit);
@@ -19,10 +19,7 @@ const getTotalProducts = async () => {
 };
 
 const searchProductById = async (id) => {
-    const product = await findProductById(id);
-    if (!product) return false;
-
-    return product;
+    return await findProductById(id);
 };
 
 const searchProductsByParams = async (term) => {

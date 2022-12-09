@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 
-const { searchUserByEmail, postUserWithoutPassword } = require('../services/users');
+const { searchUserByEmail, postUserWithoutPassword } = require('./users');
 
 const { validatePassword } = require('../middlewares/passwords');
 const { generateToken } = require('../middlewares/jwt');

@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 
-const { validateToken } = require('../middlewares/jwt');
+const { validateToken } = require('./jwt');
 const User = require('../models/user');
 
 const jwtAuth = async (req = request, res = response, next) => {

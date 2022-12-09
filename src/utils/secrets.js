@@ -19,6 +19,9 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const GOGGLE_CLIENT_ID = process.env.GOGGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
+/** Cloudinary secrets */
+const CLOUDINARY_URL = process.env.CLOUDINARY_URL;
+
 module.exports = {
     PORT,
     ENV,
@@ -31,4 +34,5 @@ module.exports = {
     JWT_SECRET_KEY,
     GOGGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
+    CLOUDINARY_URL,
 };

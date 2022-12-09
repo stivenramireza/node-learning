@@ -1,8 +1,8 @@
 const { ObjectId } = require('mongoose').Types;
 
-const { searchUserById, searchUsersByParams } = require('../services/users');
-const { searchCategoryById, searchCategoriesByParams } = require('../services/categories');
-const { searchProductById, searchProductsByParams } = require('../services/products');
+const { searchUserById, searchUsersByParams } = require('./users');
+const { searchCategoryById, searchCategoriesByParams } = require('./categories');
+const { searchProductById, searchProductsByParams } = require('./products');
 
 const searchUsers = async (term) => {
     const isMongoId = ObjectId.isValid(term);
