@@ -5,6 +5,8 @@ const io = require('socket.io');
 
 const { PORT, ENV } = require('./utils/secrets');
 
+const { socketController } = require('./sockets/controller');
+
 class App {
     constructor() {
         // Create an express instance
@@ -36,17 +38,7 @@ class App {
     }
 
     sockets() {
-        this.io.on('connection', (socket) => {
-            socket.on('disconnect', () => {
-                // console.log('Client disconnected: ', socket.id);
-            });
-
-            socket.on('message', (payload, callback) => {
-                const id = 123456789;
-                callback(id);
-                // this.io.emit('message', payload);
-            });
-        });
+        this.io.on('connection', socketController);
     }
 
     start() {
