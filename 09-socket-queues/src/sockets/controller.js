@@ -9,11 +9,13 @@ const socketController = (socket) => {
         console.log('Client disconnected: ', socket.id);
     });
 
-    socket.on('message', (payload, callback) => {
-        const id = 123456789;
-        callback(id);
+    socket.emit('last-ticket', ticketControl.lastTicket);
 
-        socket.broadcast.emit('message', payload);
+    socket.on('next-ticket', (payload, callback) => {
+        const nextTicket = ticketControl.nextTicket();
+        callback(nextTicket);
+
+        // TODO: Notify a new pending ticket
     });
 };
 

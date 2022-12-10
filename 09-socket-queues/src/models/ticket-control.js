@@ -46,9 +46,12 @@ class TicketControl {
 
     nextTicket() {
         this.lastTicket += 1;
+
         const ticket = new Ticket(this.lastTicket, null);
         this.tickets.push(ticket);
+
         this.saveDB();
+
         return `Ticket ${ticket.number}`;
     }
 
