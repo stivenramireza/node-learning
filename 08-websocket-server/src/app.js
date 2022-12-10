@@ -38,11 +38,13 @@ class App {
     sockets() {
         this.io.on('connection', (socket) => {
             socket.on('disconnect', () => {
-                console.log('Client disconnected: ', socket.id);
+                // console.log('Client disconnected: ', socket.id);
             });
 
-            socket.on('message', (payload) => {
-                this.io.emit('message', payload);
+            socket.on('message', (payload, callback) => {
+                const id = 123456789;
+                callback(id);
+                // this.io.emit('message', payload);
             });
         });
     }
