@@ -37,10 +37,12 @@ class App {
 
     sockets() {
         this.io.on('connection', (socket) => {
-            console.log('Client connected: ', socket.id);
-
             socket.on('disconnect', () => {
                 console.log('Client disconnected: ', socket.id);
+            });
+
+            socket.on('message', (payload) => {
+                this.io.emit('message', payload);
             });
         });
     }
