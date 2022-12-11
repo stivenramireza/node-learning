@@ -1,0 +1,11 @@
+{
+    "lastTicket": 40,
+    "todayDate": 10,
+    "tickets": [],
+    "lastTickets": [
+        { "number": 40, "desk": "Desk 4" },
+        { "number": 39, "desk": "Desk 4" },
+        { "number": 38, "desk": "Desk 4" },
+        { "number": 37, "desk": "Desk 3" }
+    ]
+}
