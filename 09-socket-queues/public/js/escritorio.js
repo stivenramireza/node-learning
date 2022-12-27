@@ -27,7 +27,12 @@ socket.on('disconnect', () => {
 });
 
 socket.on('pending-tickets', (pendingTickets) => {
-    lblPendientes.innerText = pendingTickets;
+    if (pendingTickets === 0) {
+        lblPendientes.style.display = 'none';
+    } else {
+        lblPendientes.style.display = '';
+        lblPendientes.innerText = pendingTickets;
+    }
 });
 
 btnAttendTicket.addEventListener('click', () => {
