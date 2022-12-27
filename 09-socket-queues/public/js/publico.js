@@ -18,21 +18,21 @@ socket.on('current-status', (lastTickets) => {
 
     if (ticket1) {
         lblTicket1.innerText = `Ticket ${ticket1.number}`;
-        lblEscritorio1.innerText = ticket1.desk;
+        lblEscritorio1.innerText = `Desk ${ticket1.desk}`;
     }
 
     if (ticket2) {
         lblTicket2.innerText = `Ticket ${ticket2.number}`;
-        lblEscritorio2.innerText = ticket2.desk;
+        lblEscritorio2.innerText = `Desk ${ticket2.desk}`;
     }
 
     if (ticket3) {
         lblTicket3.innerText = `Ticket ${ticket3.number}`;
-        lblEscritorio3.innerText = ticket3.desk;
+        lblEscritorio3.innerText = `Desk ${ticket3.desk}`;
     }
 
     if (ticket4) {
         lblTicket4.innerText = `Ticket ${ticket4.number}`;
-        lblEscritorio4.innerText = ticket4.desk;
+        lblEscritorio4.innerText = `Desk ${ticket4.desk}`;
     }
 });
