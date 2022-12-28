@@ -2,6 +2,7 @@ const { request, response } = require('express');
 
 const { loginUser, loginGoogleUser } = require('../services/auth');
 const { verifyGoogleToken } = require('../middlewares/googleAuth');
+const { generateToken } = require('../middlewares/jwt');
 
 const login = async (req = request, res = response) => {
     try {
@@ -50,7 +51,19 @@ const loginGoogle = async (req = request, res = response) => {
     }
 };
 
+const renewToken = async (req = request, res = response) => {
+    const { user } = req;
+
+    const token = await generateToken(user.id);
+
+    res.json({
+        user,
+        token,
+    });
+};
+
 module.exports = {
     login,
     loginGoogle,
+    renewToken,
 };
