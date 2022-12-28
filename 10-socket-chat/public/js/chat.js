@@ -5,6 +5,13 @@ const url = window.location.hostname.includes('localhost')
     ? 'http://localhost:3000/api/v1/auth/token/validation'
     : 'https://coffee-shop.up.railway.app/api/v1/auth/token/validation';
 
+// HTML references
+const txtUid = document.querySelector('#txtUid');
+const txtMessage = document.querySelector('#txtMessage');
+const ulUsers = document.querySelector('#ulUsers');
+const ulMessages = document.querySelector('#ulMessages');
+const btnLogout = document.querySelector('#btnLogout');
+
 const validateJWT = async () => {
     const token = localStorage.getItem('token');
 
@@ -25,10 +32,30 @@ const validateJWT = async () => {
 };
 
 const connectSocket = async () => {
-    const socket = io({
+    socket = io({
         extraHeaders: {
             Authorization: localStorage.getItem('token'),
         },
+    });
+
+    socket.on('connect', () => {
+        console.log('Sockets online');
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Sockets offline');
+    });
+
+    socket.on('receive-messages', () => {
+        // TODO
+    });
+
+    socket.on('active-users', () => {
+        // TODO
+    });
+
+    socket.on('private-message', () => {
+        // TODO
     });
 };
 
