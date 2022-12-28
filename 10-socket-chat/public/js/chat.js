@@ -46,18 +46,59 @@ const connectSocket = async () => {
         console.log('Sockets offline');
     });
 
-    socket.on('receive-messages', () => {
-        // TODO
-    });
+    socket.on('receive-messages', showMessages);
 
-    socket.on('active-users', () => {
-        // TODO
-    });
+    socket.on('active-users', showUsers);
 
-    socket.on('private-message', () => {
-        // TODO
+    socket.on('private-message', (payload) => {
+        console.log('Private:', payload);
     });
 };
+
+const showUsers = (users = []) => {
+    let userHTML = '';
+
+    users.forEach(({ name, uid }) => {
+        userHTML += `
+            <li>
+                <p>
+                    <h5 class="text-success">${name}</h5>
+                    <span class="fs-6 text-muted">${uid}</span>
+                </p>
+            </li>
+        `;
+    });
+
+    ulUsers.innerHTML = userHTML;
+};
+
+const showMessages = (messages = []) => {
+    let messagesHTML = '';
+
+    messages.forEach(({ name, message }) => {
+        messagesHTML += `
+            <li>
+                <p>
+                    <span class="text-primary">${name}:</span>
+                    <span>${message}</span>
+                </p>
+            </li>
+        `;
+    });
+
+    ulMessages.innerHTML = messagesHTML;
+};
+
+txtMessage.addEventListener('keyup', ({ keyCode }) => {
+    if (keyCode !== 13) return;
+
+    const uid = txtUid.value;
+    const message = txtMessage.value;
+    if (message.length === 0) return;
+
+    socket.emit('send-message', { uid, message });
+    txtMessage.value = '';
+});
 
 const main = async () => {
     await validateJWT();
