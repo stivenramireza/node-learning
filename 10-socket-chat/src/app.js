@@ -2,8 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 const fileUpload = require('express-fileupload');
+const http = require('http');
+const io = require('socket.io');
 
 const { dbConnection } = require('./config/database');
+const { socketController } = require('./sockets/controller');
 const { PORT, ENV, API_VERSION } = require('./utils/secrets');
 
 const {
@@ -25,6 +28,12 @@ class App {
         this.app.set('environment', ENV || 'development');
         this.app.set('api_version', API_VERSION || '/api/v1');
 
+        // Create server based on the express instance
+        this.server = http.createServer(this.app);
+
+        // Create a WebSocket instance
+        this.io = io(this.server);
+
         // Connect to database
         this.connectDatabase();
 
@@ -33,6 +42,9 @@ class App {
 
         // Routes
         this.routes();
+
+        // Sockets
+        this.sockets();
     }
 
     connectDatabase() {
@@ -71,10 +83,14 @@ class App {
         this.app.use(`${this.app.get('api_version')}/files`, fileRoutes);
     }
 
+    sockets() {
+        this.io.on('connection', socketController);
+    }
+
     start() {
-        this.app.listen(this.app.get('port'), () => {
+        this.server.listen(this.app.get('port'), () => {
             console.log(
-                `Coffee Shop API is running at port ${this.app.get('port')} in ${this.app.get(
+                `WebSocket chat server is running at port ${this.app.get('port')} in ${this.app.get(
                     'environment'
                 )} mode`
             );
