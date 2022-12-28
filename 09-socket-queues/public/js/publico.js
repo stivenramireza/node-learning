@@ -14,6 +14,9 @@ const lblEscritorio4 = document.querySelector('#lblEscritorio4');
 const socket = io();
 
 socket.on('current-status', (lastTickets) => {
+    const audio = new Audio('./audio/new-ticket.mp3');
+    audio.play();
+
     const [ticket1, ticket2, ticket3, ticket4] = lastTickets;
 
     if (ticket1) {
