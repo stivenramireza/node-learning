@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Google Sign-in</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body class="container">
+        <div class="row mt-5">
+            <div class="col-sm-6">
+                <h1>Google Sign-in</h1>
+                <hr />
+                <br />
+                <div
+                    id="g_id_onload"
+                    data-client_id="431052272388-n9s9vdf4hkc9g5jn2l2c2il208islpt5.apps.googleusercontent.com"
+                    data-auto_prompt="false"
+                    data-callback="handleCredentialResponse"
+                ></div>
+                <div
+                    class="g_id_signin"
+                    data-type="standard"
+                    data-size="large"
+                    data-theme="outline"
+                    data-text="sign_in_with"
+                    data-shape="rectangular"
+                    data-logo_alignment="left"
+                ></div>
+                <br />
+                <button id="google_logout" class="btn btn-danger">Logout</button>
+            </div>
+            <div class="col-sm-6"></div>
+        </div>
+
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script>
+            function handleCredentialResponse(response) {
+                const url = window.location.hostname.includes('localhost')
+                    ? 'http://localhost:3000/api/v1/auth/login/google'
+                    : 'https://coffee-shop-7.herokuapp.com/api/v1/auth/login/google';
+
+                const body = {
+                    idToken: response.credential,
+                };
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(body),
+                })
+                    .then((response) => response.json())
+                    .then((response) => {
+                        console.log(response);
+                        localStorage.setItem('email', response.email);
+                        location.reload();
+                    })
+                    .catch(console.warn);
+            }
+
+            const button = document.getElementById('google_logout');
+            button.onclick = () => {
+                const googleAccount = google.accounts.id;
+                googleAccount.disableAutoSelect();
+
+                const email = localStorage.getItem('email');
+                googleAccount.revoke(email, () => {
+                    localStorage.clear();
+                    location.reload();
+                });
+            };
+        </script>
+    </body>
+</html>
