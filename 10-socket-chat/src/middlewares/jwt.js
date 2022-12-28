@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { JWT_SECRET_KEY } = require('../utils/secrets');
+const { searchUserById } = require('../services/users');
 
 const generateToken = (uid = '') => {
     return new Promise((resolve, reject) => {
@@ -24,8 +25,17 @@ const generateToken = (uid = '') => {
     });
 };
 
-const validateToken = (token) => {
-    return jwt.verify(token, JWT_SECRET_KEY);
+const validateToken = async (token) => {
+    try {
+        const { uid } = jwt.verify(token, JWT_SECRET_KEY);
+        const user = await searchUserById(uid);
+
+        if (!user) return null;
+        if (!user.status) return null;
+        return user;
+    } catch (error) {
+        return null;
+    }
 };
 
 module.exports = {
