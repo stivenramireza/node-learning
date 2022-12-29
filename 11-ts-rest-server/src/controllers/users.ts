@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
+import { searchUsers } from '../services/users';
 
-export const getUsers = (req: Request, res: Response) => {
-    res.json({
-        message: 'GET users',
-    });
+export const getUsers = async (req: Request, res: Response) => {
+    const users = await searchUsers();
+
+    res.json(users);
 };
 
 export const getUser = (req: Request, res: Response) => {

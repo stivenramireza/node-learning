@@ -30,7 +30,7 @@ class App {
             await database.authenticate();
             console.log('Connected to MySQL database successfully');
         } catch (error: any) {
-            throw new Error(error);
+            console.error(`Error to connect to MySQL database: ${error}`);
         }
     }
 
