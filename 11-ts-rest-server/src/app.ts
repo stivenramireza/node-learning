@@ -3,8 +3,7 @@ import cors from 'cors';
 
 import userRoutes from './routes/users';
 import { PORT, ENV, API_VERSION } from './utils/secrets';
-import db from './config/database';
-import Database from './config/database';
+import database from './config/database';
 
 class App {
     private app: Application;
@@ -26,9 +25,13 @@ class App {
         this.routes();
     }
 
-    dbConnection() {
-        const database = new Database();
-        database.connect();
+    async dbConnection() {
+        try {
+            await database.authenticate();
+            console.log('Connected to MySQL database successfully');
+        } catch (error: any) {
+            throw new Error(error);
+        }
     }
 
     middlewares() {
