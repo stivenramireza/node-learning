@@ -1,9 +1,17 @@
 import User from '../models/user';
 
-export const findUsers = async () => {
-    return await User.findAll({
-        where: {
-            status: true,
-        },
-    });
-};
+class UserRepository {
+    public async getUsers() {
+        return await User.findAll({
+            where: {
+                status: true,
+            },
+        });
+    }
+
+    public async getUserById(id: string) {
+        return await User.findByPk(id);
+    }
+}
+
+export default new UserRepository();

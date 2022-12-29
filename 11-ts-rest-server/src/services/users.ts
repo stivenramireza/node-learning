@@ -1,5 +1,13 @@
-import { findUsers } from '../repositories/users';
+import UserRepository from '../repositories/users';
 
-export const searchUsers = async () => {
-    return await findUsers();
-};
+class UserService {
+    public async getUsers() {
+        return await UserRepository.getUsers();
+    }
+
+    public async getUserById(id: string) {
+        return await UserRepository.getUserById(id);
+    }
+}
+
+export default new UserService();

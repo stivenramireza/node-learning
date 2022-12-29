@@ -1,46 +1,51 @@
 import { Request, Response } from 'express';
-import { searchUsers } from '../services/users';
 
-export const getUsers = async (req: Request, res: Response) => {
-    const users = await searchUsers();
+import UserService from '../services/users';
 
-    res.json(users);
-};
+class UserController {
+    public async getUsers(req: Request, res: Response) {
+        const users = await UserService.getUsers();
 
-export const getUser = (req: Request, res: Response) => {
-    const { id } = req.params;
+        res.json(users);
+    }
 
-    res.json({
-        message: 'GET user',
-        id,
-    });
-};
+    public async getUser(req: Request, res: Response) {
+        const { id } = req.params;
 
-export const postUser = (req: Request, res: Response) => {
-    const { body } = req;
+        const user = await UserService.getUserById(id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
 
-    res.json({
-        message: 'POST users',
-        body,
-    });
-};
+        res.json(user);
+    }
 
-export const putUser = (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { body } = req;
+    public async postUser(req: Request, res: Response) {
+        const { body } = req;
 
-    res.json({
-        message: 'PUT users',
-        body,
-        id,
-    });
-};
+        res.json({
+            message: 'POST users',
+            body,
+        });
+    }
 
-export const deleteUser = (req: Request, res: Response) => {
-    const { id } = req.params;
+    public async putUser(req: Request, res: Response) {
+        const { id } = req.params;
+        const { body } = req;
 
-    res.json({
-        message: 'DELETE users',
-        id,
-    });
-};
+        res.json({
+            message: 'PUT users',
+            body,
+            id,
+        });
+    }
+
+    public async deleteUser(req: Request, res: Response) {
+        const { id } = req.params;
+
+        res.json({
+            message: 'DELETE users',
+            id,
+        });
+    }
+}
+
+export default new UserController();
