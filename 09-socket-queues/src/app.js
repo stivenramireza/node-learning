@@ -12,15 +12,15 @@ class App {
         // Create an express instance
         this.app = express();
 
+        // Set app environment variables
+        this.app.set('port', PORT || 3000);
+        this.app.set('environment', ENV || 'development');
+
         // Create server based on the express instance
         this.server = http.createServer(this.app);
 
         // Create a WebSocket instance
         this.io = io(this.server);
-
-        // Set app environment variables
-        this.app.set('port', PORT || 3000);
-        this.app.set('environment', ENV || 'development');
 
         // Middlewares
         this.middlewares();
