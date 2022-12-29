@@ -1,12 +1,21 @@
 import { Model, DataTypes } from 'sequelize';
 import database from '../config/database';
 
-class User extends Model {}
+class User extends Model {
+    id!: string;
+    name!: string;
+    email!: string;
+    status!: string;
+    createdAt!: Date;
+    updatedAt!: Date;
+}
 
 User.init(
     {
         id: {
             type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
             primaryKey: true,
         },
         name: {
