@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import cors from 'cors';
 
 import userRoutes from './routes/users';
 import { PORT, ENV, API_VERSION } from './utils/secrets';
@@ -18,8 +19,22 @@ class App {
         this.environment = ENV || 'development';
         this.apiVersion = API_VERSION || '/api/v1';
 
+        // Middlewares
+        this.middlewares();
+
         // Routes
         this.routes();
+    }
+
+    middlewares() {
+        // CORS
+        this.app.use(cors());
+
+        // Read and parse body
+        this.app.use(express.json());
+
+        // Public directory
+        this.app.use(express.static('public'));
     }
 
     routes() {
