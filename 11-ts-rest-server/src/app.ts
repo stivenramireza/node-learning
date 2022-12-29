@@ -3,27 +3,32 @@ import cors from 'cors';
 
 import userRoutes from './routes/users';
 import { PORT, ENV, API_VERSION } from './utils/secrets';
+import db from './config/database';
+import Database from './config/database';
 
 class App {
     private app: Application;
-    private port: number;
-    private environment: string;
-    private apiVersion: string;
+    private port: number = PORT;
+    private environment: string = ENV;
+    private apiVersion: string = API_VERSION;
 
     constructor() {
         // Create an express instance
         this.app = express();
 
-        // Set app environment variables
-        this.port = Number(PORT) || 3000;
-        this.environment = ENV || 'development';
-        this.apiVersion = API_VERSION || '/api/v1';
+        // Database connection
+        this.dbConnection();
 
         // Middlewares
         this.middlewares();
 
         // Routes
         this.routes();
+    }
+
+    dbConnection() {
+        const database = new Database();
+        database.connect();
     }
 
     middlewares() {
